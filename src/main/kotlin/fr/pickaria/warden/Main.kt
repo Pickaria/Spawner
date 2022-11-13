@@ -7,7 +7,6 @@ class Main: JavaPlugin() {
 		super.onEnable()
 
 		getCommand("warden")?.setExecutor(Command())
-
-		logger.info("Plugin enabled")
+		server.pluginManager.registerEvents(Listeners(), this)
 	}
 }

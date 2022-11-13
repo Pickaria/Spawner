@@ -28,13 +28,6 @@ class CustomVillager(location: Location) :
 
 		this.goalSelector.disableControlFlag(Goal.Flag.MOVE)
 		this.targetSelector.disableControlFlag(Goal.Flag.MOVE)
-
-		//this.goalSelector = CustomGoalSelector(level.profilerSupplier)
-		//this.goalSelector.addGoal(1, FleeSunGoal(this.navigation.path))
-
-		//this.navigation = CustomPathNavigation(this, level, location)
-		//(this.navigation as GroundPathNavigation).setCanOpenDoors(true)
-		//this.navigation.setCanFloat(true)
 	}
 
 	override fun tick() {
