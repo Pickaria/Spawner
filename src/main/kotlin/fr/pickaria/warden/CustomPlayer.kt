@@ -2,7 +2,6 @@ package fr.pickaria.warden
 
 import com.mojang.authlib.GameProfile
 import net.minecraft.commands.arguments.EntityAnchorArgument
-import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.game.ClientboundAddPlayerPacket
 import net.minecraft.network.protocol.game.ClientboundPlayerInfoPacket
 import net.minecraft.network.protocol.game.ClientboundRotateHeadPacket
@@ -21,6 +20,7 @@ import net.minecraft.world.phys.Vec3
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer
+import org.bukkit.entity.Player
 
 
 class CustomPlayer(
@@ -31,13 +31,13 @@ class CustomPlayer(
 ) : ServerPlayer(server, world, profile, profilePublicKey) {
 	companion object {
 		fun showAll(entityPlayer: ServerPlayer, location: Location) {
-			val playerInfoAdd = ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER)
+			val playerInfoAdd = ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER, entityPlayer)
 			val namedEntitySpawn = ClientboundAddPlayerPacket(entityPlayer)
 			val headRotation = ClientboundRotateHeadPacket(
 				entityPlayer,
 				(location.yaw * 256f / 360f).toInt().toByte()
 			)
-			val playerInfoRemove = ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER)
+			val playerInfoRemove = ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER, entityPlayer)
 
 			for (player in Bukkit.getOnlinePlayers()) {
 				val connection = (player as CraftPlayer).handle.connection
@@ -46,6 +46,19 @@ class CustomPlayer(
 				connection.send(headRotation)
 				connection.send(playerInfoRemove)
 			}
+
+			entityPlayer.entityData[DATA_PLAYER_MODE_CUSTOMISATION] = 0xFF.toByte()
+		}
+
+		fun show(entityPlayer: ServerPlayer, player: Player) {
+			val playerInfoAdd = ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.ADD_PLAYER, entityPlayer)
+			val namedEntitySpawn = ClientboundAddPlayerPacket(entityPlayer)
+			val playerInfoRemove = ClientboundPlayerInfoPacket(ClientboundPlayerInfoPacket.Action.REMOVE_PLAYER, entityPlayer)
+
+				val connection = (player as CraftPlayer).handle.connection
+				connection.send(playerInfoAdd)
+				connection.send(namedEntitySpawn)
+				connection.send(playerInfoRemove)
 
 			entityPlayer.entityData[DATA_PLAYER_MODE_CUSTOMISATION] = 0xFF.toByte()
 		}
@@ -79,10 +92,6 @@ class CustomPlayer(
 		)?.let {
 			lookAt(EntityAnchorArgument.Anchor.EYES, it, EntityAnchorArgument.Anchor.EYES)
 		}
-	}
-
-	override fun getDisplayName(): Component {
-		return Component.literal("§7[§6NPC§7] Bernard")
 	}
 
 	override fun interactOn(entity: Entity?, enumhand: InteractionHand?): InteractionResult {

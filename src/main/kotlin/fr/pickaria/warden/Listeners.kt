@@ -2,11 +2,14 @@ package fr.pickaria.warden
 
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.craftbukkit.v1_19_R1.CraftWorld
 import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.TradeSelectEvent
 import org.bukkit.event.player.PlayerInteractAtEntityEvent
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.MerchantRecipe
 
@@ -30,6 +33,13 @@ class Listeners : Listener {
 	fun onTrade(event: TradeSelectEvent) {
 		if (event.merchant is Shop) {
 			Bukkit.broadcastMessage("ok")
+		}
+	}
+
+	@EventHandler
+	fun onPlayerJoin(event: PlayerJoinEvent) {
+		(event.player.world as CraftWorld).handle.getPlayers { it is CustomPlayer }.forEach {
+			CustomPlayer.show(it, event.player)
 		}
 	}
 }
