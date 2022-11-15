@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.inventory.TradeSelectEvent
 import org.bukkit.inventory.MerchantInventory
 
-class Listeners : Listener {
+internal class Listeners : Listener {
 	@EventHandler
 	fun onPlayerOpenCustomMerchant(event: InventoryOpenEvent) {
 		with(event) {

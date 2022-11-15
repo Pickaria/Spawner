@@ -5,10 +5,10 @@ import org.bukkit.Location
 import org.bukkit.craftbukkit.v1_19_R1.CraftWorld
 import org.bukkit.entity.Villager
 
-fun spawnVillager(location: Location): Villager {
+fun spawnVillager(location: Location, title: String): Villager {
 	val world: ServerLevel = (location.world as CraftWorld).handle
 
-	val villager = CustomVillager(location, "test")
+	val villager = CustomVillager(location, title)
 
 	villager.setPos(location.x, location.y, location.z)
 

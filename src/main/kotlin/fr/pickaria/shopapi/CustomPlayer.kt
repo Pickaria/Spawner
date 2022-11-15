@@ -23,7 +23,7 @@ import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer
 import org.bukkit.entity.Player
 
 
-class CustomPlayer(
+internal class CustomPlayer(
 	server: MinecraftServer,
 	world: ServerLevel,
 	profile: GameProfile,

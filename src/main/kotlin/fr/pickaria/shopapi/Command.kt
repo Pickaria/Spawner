@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.entity.Villager
 
-class Command : CommandExecutor {
+internal class Command : CommandExecutor {
 
 	override fun onCommand(sender: CommandSender, p1: Command, p2: String, p3: Array<out String>): Boolean {
 		if (sender is Player) {

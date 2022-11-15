@@ -2,7 +2,7 @@ package fr.pickaria.shopapi
 
 import org.bukkit.plugin.java.JavaPlugin
 
-class Main: JavaPlugin() {
+internal class Main: JavaPlugin() {
 	override fun onEnable() {
 		super.onEnable()
 

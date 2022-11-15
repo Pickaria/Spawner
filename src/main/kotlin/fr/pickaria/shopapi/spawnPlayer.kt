@@ -23,7 +23,7 @@ private class NetHandler(server: MinecraftServer?, connection: Connection?, play
 	override fun send(packet: Packet<*>?) {}
 }
 
-fun spawnPlayer(location: Location, name: String): Player? {
+internal fun spawnPlayer(location: Location, name: String): Player? {
 	val server = (Bukkit.getServer() as CraftServer).server
 	val world: ServerLevel = (location.world as CraftWorld).handle
 
