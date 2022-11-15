@@ -1,4 +1,4 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor

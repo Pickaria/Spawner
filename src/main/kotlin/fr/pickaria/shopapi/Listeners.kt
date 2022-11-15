@@ -1,6 +1,6 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
-import fr.pickaria.warden.event.PlayerInteractAtCustomVillagerEvent
+import fr.pickaria.shopapi.event.PlayerInteractAtCustomVillagerEvent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

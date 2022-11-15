@@ -1,4 +1,4 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
 import com.mojang.authlib.GameProfile
 import com.mojang.authlib.properties.Property
@@ -17,7 +17,6 @@ import org.bukkit.craftbukkit.v1_19_R1.CraftWorld
 import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer
 import org.bukkit.entity.Player
 import java.util.*
-import java.util.function.Predicate
 
 private class NetHandler(server: MinecraftServer?, connection: Connection?, player: ServerPlayer?) :
 	ServerGamePacketListenerImpl(server, connection, player) {

@@ -1,4 +1,4 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
 import net.minecraft.server.level.ServerLevel
 import org.bukkit.Location

@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	kotlin("jvm") version "1.7.20"
 	id("io.github.shayf0x.spigotwarden") version "1.0"
+	`maven-publish`
 }
 
 group = "fr.pickaria"
@@ -23,4 +24,16 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions.jvmTarget = "17"
+}
+
+publishing {
+	publications {
+		create<MavenPublication>("maven") {
+			groupId = "fr.pickaria"
+			artifactId = "shopapi"
+			version = version
+
+			from(components["java"])
+		}
+	}
 }

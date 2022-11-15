@@ -1,4 +1,4 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
 import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.core.BlockPos

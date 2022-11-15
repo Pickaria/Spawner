@@ -1,6 +1,6 @@
-package fr.pickaria.warden.event
+package fr.pickaria.shopapi.event
 
-import fr.pickaria.warden.Shop
+import fr.pickaria.shopapi.Shop
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event

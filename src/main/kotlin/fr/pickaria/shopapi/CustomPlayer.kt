@@ -1,4 +1,4 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
 import com.mojang.authlib.GameProfile
 import net.minecraft.commands.arguments.EntityAnchorArgument

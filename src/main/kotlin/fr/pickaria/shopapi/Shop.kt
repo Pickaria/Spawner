@@ -1,4 +1,4 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
 import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftMerchantCustom
 import org.bukkit.entity.Villager

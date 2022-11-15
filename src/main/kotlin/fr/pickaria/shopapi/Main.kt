@@ -1,4 +1,4 @@
-package fr.pickaria.warden
+package fr.pickaria.shopapi
 
 import org.bukkit.plugin.java.JavaPlugin
 
