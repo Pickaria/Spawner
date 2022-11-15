@@ -1,5 +1,6 @@
 package fr.pickaria.warden
 
 import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftMerchantCustom
+import org.bukkit.entity.Villager
 
-class Shop(title: String) : CraftMerchantCustom(title)
+class Shop(title: String, val villager: Villager) : CraftMerchantCustom(title)

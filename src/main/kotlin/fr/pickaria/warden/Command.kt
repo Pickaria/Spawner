@@ -1,11 +1,10 @@
 package fr.pickaria.warden
 
-import org.bukkit.Material
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
+import org.bukkit.entity.Villager
 
 class Command : CommandExecutor {
 
@@ -13,11 +12,17 @@ class Command : CommandExecutor {
 		if (sender is Player) {
 			val location = sender.location
 
-			spawnPlayer(location, "Bernard")?.let {
-				sender.sendMessage(it.toString())
-//				sender.hidePlayer(plugin, it)
+			spawnVillager(location).let {
+				it.profession = Villager.Profession.ARMORER
+				it.villagerType = Villager.Type.JUNGLE
 
-				it.inventory.setItemInMainHand(ItemStack(Material.DIAMOND_SWORD))
+				/*val merchant = it as Merchant
+				val recipe = MerchantRecipe(ItemStack(Material.GRASS_BLOCK), Int.MAX_VALUE)
+				recipe.addIngredient(ItemStack(Material.DIAMOND))
+				merchant.recipes = listOf(recipe)*/
+
+//				it.villagerExperience = 1
+//				it.villagerLevel = 1
 			}
 		}
 

@@ -1,31 +1,45 @@
 package fr.pickaria.warden
 
+import fr.pickaria.warden.event.PlayerInteractAtCustomVillagerEvent
 import org.bukkit.Bukkit
-import org.bukkit.Material
-import org.bukkit.craftbukkit.v1_19_R1.CraftWorld
-import org.bukkit.craftbukkit.v1_19_R1.entity.CraftPlayer
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.inventory.TradeSelectEvent
-import org.bukkit.event.player.PlayerInteractAtEntityEvent
-import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.MerchantRecipe
+import org.bukkit.inventory.MerchantInventory
 
 class Listeners : Listener {
 	@EventHandler
-	fun on(event: PlayerInteractAtEntityEvent) {
+	fun onPlayerOpenCustomMerchant(event: InventoryOpenEvent) {
 		with(event) {
-			if ((rightClicked as CraftPlayer).handle is CustomPlayer) {
-				val merchant = Shop(rightClicked.name)
-
-				val recipe = MerchantRecipe(ItemStack(Material.GRASS_BLOCK), Int.MAX_VALUE)
-				recipe.addIngredient(ItemStack(Material.DIAMOND))
-				merchant.recipes = listOf(recipe)
-
-				player.openMerchant(merchant, true)
+			if (inventory.type == InventoryType.MERCHANT) {
+				val merchantInventory = inventory as MerchantInventory
+				if (merchantInventory.merchant is Shop) {
+					val customEvent = PlayerInteractAtCustomVillagerEvent(
+						player as Player,
+						merchantInventory.merchant as Shop
+					)
+					Bukkit.getPluginManager().callEvent(customEvent)
+					isCancelled = customEvent.isCancelled
+				}
 			}
+		}
+	}
+
+	@EventHandler
+	fun onPlayerInteractAtCustomVillager(event: PlayerInteractAtCustomVillagerEvent) {
+		with(event) {
+			isCancelled = true
+			merchant.villager.shakeHead()
+			/*val merchant = Shop(villager.name)
+
+			val recipe = MerchantRecipe(ItemStack(Material.GRASS_BLOCK), Int.MAX_VALUE)
+			recipe.addIngredient(ItemStack(Material.DIAMOND))
+			merchant.recipes = listOf(recipe)
+
+			player.openMerchant(merchant, true)*/
 		}
 	}
 
@@ -33,13 +47,6 @@ class Listeners : Listener {
 	fun onTrade(event: TradeSelectEvent) {
 		if (event.merchant is Shop) {
 			Bukkit.broadcastMessage("ok")
-		}
-	}
-
-	@EventHandler
-	fun onPlayerJoin(event: PlayerJoinEvent) {
-		(event.player.world as CraftWorld).handle.getPlayers { it is CustomPlayer }.forEach {
-			CustomPlayer.show(it, event.player)
 		}
 	}
 }
