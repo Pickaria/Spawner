@@ -12,7 +12,7 @@ internal class Command : CommandExecutor {
 		if (sender is Player) {
 			val location = sender.location
 
-			spawnVillager(location).let {
+			spawnVillager(location, "test").let {
 				it.profession = Villager.Profession.ARMORER
 				it.villagerType = Villager.Type.JUNGLE
 
