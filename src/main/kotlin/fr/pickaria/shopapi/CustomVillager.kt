@@ -3,15 +3,19 @@ package fr.pickaria.shopapi
 import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.npc.Villager
+import net.minecraft.world.item.trading.MerchantOffers
 import net.minecraft.world.level.levelgen.structure.BoundingBox
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.craftbukkit.v1_19_R1.CraftWorld
 import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftMerchant
+import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftMerchantRecipe
 import kotlin.random.Random
 
 
@@ -32,6 +36,7 @@ class CustomVillager(location: Location, title: String) :
 
 	private val target: Vec3
 	private val maxDist: Int = 5
+	private val shop: CraftMerchant = Shop(title, this)
 
 	init {
 		target = Vec3(location.blockX.toDouble(), location.blockY.toDouble(), location.blockZ.toDouble())
@@ -40,7 +45,14 @@ class CustomVillager(location: Location, title: String) :
 		this.brain.removeAllBehaviors()
 	}
 
-	private val shop: CraftMerchant = Shop(title, this.bukkitEntity as org.bukkit.entity.Villager)
+	public override fun updateTrades() {
+		this.offers = MerchantOffers().apply {
+			shop.recipes.forEach {
+				add((it as CraftMerchantRecipe).toMinecraft())
+			}
+		}
+	}
+
  	override fun getCraftMerchant(): CraftMerchant = shop
 
 	override fun tick() {

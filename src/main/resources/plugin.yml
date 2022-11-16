@@ -1,5 +1,5 @@
 name: PickariaWarden
-main: fr.pickaria.warden.Main
+main: fr.pickaria.shopapi.Main
 api-version: 1.19
 version: 1.0
 

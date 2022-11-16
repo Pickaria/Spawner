@@ -1,9 +1,6 @@
 package fr.pickaria.shopapi
 
-import fr.pickaria.shopapi.event.PlayerBuyEvent
-import fr.pickaria.shopapi.event.PlayerCloseShopEvent
-import fr.pickaria.shopapi.event.PlayerOpenShopEvent
-import fr.pickaria.shopapi.event.PlayerSelectTradeEvent
+import fr.pickaria.shopapi.event.*
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -24,7 +21,7 @@ internal class Listeners : Listener {
 				if (merchantInventory.merchant is Shop) {
 					val customEvent = PlayerOpenShopEvent(
 						player as Player,
-						merchantInventory.merchant as Shop
+						merchantInventory.merchant
 					)
 					Bukkit.getPluginManager().callEvent(customEvent)
 					isCancelled = customEvent.isCancelled
@@ -39,9 +36,12 @@ internal class Listeners : Listener {
 			if (merchant is Shop) {
 				val customEvent = PlayerSelectTradeEvent(
 					whoClicked as Player,
-					merchant as Shop
+					merchant,
+					merchant.getRecipe(index),
+					inventory
 				)
 				Bukkit.getPluginManager().callEvent(customEvent)
+				result = customEvent.result
 				isCancelled = customEvent.isCancelled
 			}
 		}
@@ -53,12 +53,26 @@ internal class Listeners : Listener {
 			if (inventory.type == InventoryType.MERCHANT) {
 				val merchantInventory = inventory as MerchantInventory
 				if (merchantInventory.merchant is Shop) {
-					val customEvent = PlayerBuyEvent(
-						whoClicked as Player,
-						merchantInventory.merchant as Shop
-					)
-					Bukkit.getPluginManager().callEvent(customEvent)
-					isCancelled = customEvent.isCancelled
+					merchantInventory.selectedRecipe?.let {
+						val customEvent: ResultShopEvent = if (slotType == InventoryType.SlotType.RESULT) {
+							PlayerBuyEvent(
+								whoClicked as Player,
+								merchantInventory.merchant as Shop,
+								it
+							)
+						} else {
+							ShopClickEvent(
+								whoClicked as Player,
+								merchantInventory.merchant as Shop,
+								it,
+								currentItem
+							)
+						}
+
+						Bukkit.getPluginManager().callEvent(customEvent)
+						result = customEvent.result
+						isCancelled = customEvent.isCancelled
+					}
 				}
 			}
 		}
@@ -72,7 +86,8 @@ internal class Listeners : Listener {
 				if (merchantInventory.merchant is Shop) {
 					val customEvent = PlayerCloseShopEvent(
 						player as Player,
-						merchantInventory.merchant as Shop
+						merchantInventory.merchant as Shop,
+						merchantInventory
 					)
 					Bukkit.getPluginManager().callEvent(customEvent)
 				}
