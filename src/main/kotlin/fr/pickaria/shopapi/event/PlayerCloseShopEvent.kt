@@ -6,7 +6,7 @@ import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.HandlerList
 
-class PlayerInteractAtCustomVillagerEvent(val player: Player, val merchant: Shop): Event(), Cancellable {
+class PlayerCloseShopEvent(val player: Player, val merchant: Shop): Event() {
 	companion object {
 		private val HANDLERS = HandlerList()
 
@@ -15,12 +15,4 @@ class PlayerInteractAtCustomVillagerEvent(val player: Player, val merchant: Shop
 	}
 
 	override fun getHandlers() = HANDLERS
-
-	private var isCancelled = false
-
-	override fun isCancelled() = isCancelled
-
-	override fun setCancelled(isCancelled: Boolean) {
-		this.isCancelled = isCancelled
-	}
 }

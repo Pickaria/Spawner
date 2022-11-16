@@ -1,10 +1,15 @@
 package fr.pickaria.shopapi
 
-import fr.pickaria.shopapi.event.PlayerInteractAtCustomVillagerEvent
+import fr.pickaria.shopapi.event.PlayerBuyEvent
+import fr.pickaria.shopapi.event.PlayerCloseShopEvent
+import fr.pickaria.shopapi.event.PlayerOpenShopEvent
+import fr.pickaria.shopapi.event.PlayerSelectTradeEvent
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.event.inventory.InventoryType
 import org.bukkit.event.inventory.TradeSelectEvent
@@ -12,12 +17,12 @@ import org.bukkit.inventory.MerchantInventory
 
 internal class Listeners : Listener {
 	@EventHandler
-	fun onPlayerOpenCustomMerchant(event: InventoryOpenEvent) {
+	fun onPlayerOpenShop(event: InventoryOpenEvent) {
 		with(event) {
 			if (inventory.type == InventoryType.MERCHANT) {
 				val merchantInventory = inventory as MerchantInventory
 				if (merchantInventory.merchant is Shop) {
-					val customEvent = PlayerInteractAtCustomVillagerEvent(
+					val customEvent = PlayerOpenShopEvent(
 						player as Player,
 						merchantInventory.merchant as Shop
 					)
@@ -29,24 +34,49 @@ internal class Listeners : Listener {
 	}
 
 	@EventHandler
-	fun onPlayerInteractAtCustomVillager(event: PlayerInteractAtCustomVillagerEvent) {
+	fun onTradeSelect(event: TradeSelectEvent) {
 		with(event) {
-			isCancelled = true
-			merchant.villager.shakeHead()
-			/*val merchant = Shop(villager.name)
-
-			val recipe = MerchantRecipe(ItemStack(Material.GRASS_BLOCK), Int.MAX_VALUE)
-			recipe.addIngredient(ItemStack(Material.DIAMOND))
-			merchant.recipes = listOf(recipe)
-
-			player.openMerchant(merchant, true)*/
+			if (merchant is Shop) {
+				val customEvent = PlayerSelectTradeEvent(
+					whoClicked as Player,
+					merchant as Shop
+				)
+				Bukkit.getPluginManager().callEvent(customEvent)
+				isCancelled = customEvent.isCancelled
+			}
 		}
 	}
 
 	@EventHandler
-	fun onTrade(event: TradeSelectEvent) {
-		if (event.merchant is Shop) {
-			Bukkit.broadcastMessage("ok")
+	fun onPlayerTrade(event: InventoryClickEvent) {
+		with(event) {
+			if (inventory.type == InventoryType.MERCHANT) {
+				val merchantInventory = inventory as MerchantInventory
+				if (merchantInventory.merchant is Shop) {
+					val customEvent = PlayerBuyEvent(
+						whoClicked as Player,
+						merchantInventory.merchant as Shop
+					)
+					Bukkit.getPluginManager().callEvent(customEvent)
+					isCancelled = customEvent.isCancelled
+				}
+			}
+		}
+	}
+
+	@EventHandler
+	fun onPlayerCloseShop(event: InventoryCloseEvent) {
+		with(event) {
+			if (inventory.type == InventoryType.MERCHANT) {
+				val merchantInventory = inventory as MerchantInventory
+				if (merchantInventory.merchant is Shop) {
+					val customEvent = PlayerCloseShopEvent(
+						player as Player,
+						merchantInventory.merchant as Shop
+					)
+					Bukkit.getPluginManager().callEvent(customEvent)
+				}
+			}
 		}
 	}
 }

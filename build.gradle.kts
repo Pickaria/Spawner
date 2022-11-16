@@ -4,9 +4,10 @@ plugins {
 	kotlin("jvm") version "1.7.20"
 	id("io.github.shayf0x.spigotwarden") version "1.0"
 	`maven-publish`
+	java
 }
 
-group = "fr.pickaria"
+group = "com.github.pickaria"
 version = "1.0-SNAPSHOT"
 
 SpigotWarden {
@@ -28,6 +29,8 @@ tasks.withType<KotlinCompile> {
 }
 
 java {
+	withSourcesJar()
+	withJavadocJar()
 	sourceCompatibility = JavaVersion.VERSION_17
 	targetCompatibility = JavaVersion.VERSION_17
 }
