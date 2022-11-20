@@ -35,8 +35,9 @@ class CustomVillager(location: Location, title: String) :
 	}
 
 	private val target: Vec3
-	private val maxDist: Int = 5
+	private val maxDist: Int = 3
 	private val shop: CraftMerchant = Shop(title, this)
+	private var moveIn: Int = 0
 
 	init {
 		target = Vec3(location.blockX.toDouble(), location.blockY.toDouble(), location.blockZ.toDouble())
@@ -53,35 +54,37 @@ class CustomVillager(location: Location, title: String) :
 		}
 	}
 
- 	override fun getCraftMerchant(): CraftMerchant = shop
+	override fun getCraftMerchant(): CraftMerchant = shop
 
 	override fun tick() {
 		super.tick()
 
-		if (navigation.isDone) {
-			// Look at nearest player
-			val boundingBox = boundingBox(position(), 5.0, 5.0, 5.0)
-			val aabb = AABB.of(boundingBox)
+		val boundingBox = boundingBox(position(), 3.0, 3.0, 3.0)
+		val aabb = AABB.of(boundingBox)
 
-			level.getNearestEntity(
-				ServerPlayer::class.java,
-				TargetingConditions.forNonCombat(),
-				this,
-				position().x,
-				position().y,
-				position().z,
-				aabb
-			)?.let {
-				val pos: Vec3 = it.getEyePosition(0F)
-				lookAt(EntityAnchorArgument.Anchor.EYES, pos)
-				true
-			} ?: run {
+		// Look at nearest player
+		level.getNearestEntity(
+			ServerPlayer::class.java,
+			TargetingConditions.forNonCombat(),
+			this,
+			position().x,
+			position().y,
+			position().z,
+			aabb
+		)?.let {
+			navigation.stop()
+			val pos: Vec3 = it.getEyePosition(0F)
+			lookAt(EntityAnchorArgument.Anchor.EYES, pos)
+			true
+		} ?: run {
+			if (navigation.isDone && moveIn-- < 0) {
 				val x = target.x + Random.Default.nextInt(-maxDist, maxDist)
 				val y = target.y + Random.Default.nextInt(-maxDist, maxDist)
 				val z = target.z + Random.Default.nextInt(-maxDist, maxDist)
 				val target = BlockPos(x, y, z)
 				val path = this.navigation.createPath(target, 0)
 				this.navigation.moveTo(path, 0.5)
+				moveIn = Random.nextInt(20, 100)
 			}
 		}
 	}
