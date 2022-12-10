@@ -1,4 +1,4 @@
-package fr.pickaria.shopapi
+package fr.pickaria.spawner
 
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -7,6 +7,10 @@ internal class Main: JavaPlugin() {
 		super.onEnable()
 
 		getCommand("warden")?.setExecutor(Command())
-		server.pluginManager.registerEvents(Listeners(), this)
+		enableSpawnerLibrary()
 	}
+}
+
+fun JavaPlugin.enableSpawnerLibrary() {
+	server.pluginManager.registerEvents(Listeners(), this)
 }

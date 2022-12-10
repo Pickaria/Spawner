@@ -1,6 +1,6 @@
-package fr.pickaria.shopapi
+package fr.pickaria.spawner
 
-import fr.pickaria.shopapi.event.*
+import fr.pickaria.spawner.event.*
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler

@@ -1,4 +1,4 @@
-package fr.pickaria.shopapi
+package fr.pickaria.spawner
 
 import org.bukkit.Material
 import org.bukkit.command.Command
@@ -11,7 +11,6 @@ import org.bukkit.inventory.Merchant
 import org.bukkit.inventory.MerchantRecipe
 
 internal class Command : CommandExecutor {
-
 	override fun onCommand(sender: CommandSender, p1: Command, p2: String, p3: Array<out String>): Boolean {
 		if (sender is Player) {
 			val location = sender.location

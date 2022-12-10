@@ -1,3 +1,1 @@
-
-rootProject.name = "warden"
-
+rootProject.name = "spawner"

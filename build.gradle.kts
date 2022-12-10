@@ -7,11 +7,11 @@ plugins {
 	java
 }
 
-group = "com.github.pickaria"
-version = "1.0-SNAPSHOT"
+group = "fr.pickaria"
+version = "1.0.1-SNAPSHOT"
 
 SpigotWarden {
-	buildOutput.set(file("/home/erwan/Documents/GitHub/Pickaria/plugin-collection/server/plugins"))
+	minecraftVersion.set("1.19.3-R0.1-SNAPSHOT")
 }
 
 repositories {
@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-	implementation("org.spigotmc:spigot:1.19-R0.1-SNAPSHOT:remapped-mojang")
+	implementation("org.spigotmc:spigot:1.19.3-R0.1-SNAPSHOT:remapped-mojang")
 }
 
 tasks.withType<KotlinCompile> {
@@ -36,11 +36,18 @@ java {
 }
 
 publishing {
+	repositories {
+		maven {
+			url = uri("https://maven.quozul.dev/snapshots")
+			credentials(PasswordCredentials::class)
+		}
+	}
+
 	publications {
 		create<MavenPublication>("maven") {
 			groupId = "fr.pickaria"
-			artifactId = "shopapi"
-			version = version
+			artifactId = "spawner"
+			version = "1.0.1-SNAPSHOT"
 
 			from(components["java"])
 		}

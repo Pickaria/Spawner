@@ -1,9 +1,8 @@
-package fr.pickaria.shopapi
+package fr.pickaria.spawner
 
 import net.minecraft.commands.arguments.EntityAnchorArgument
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.npc.Villager
@@ -11,11 +10,10 @@ import net.minecraft.world.item.trading.MerchantOffers
 import net.minecraft.world.level.levelgen.structure.BoundingBox
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
-import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.craftbukkit.v1_19_R1.CraftWorld
-import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftMerchant
-import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftMerchantRecipe
+import org.bukkit.craftbukkit.v1_19_R2.CraftWorld
+import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftMerchant
+import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftMerchantRecipe
 import kotlin.random.Random
 
 
