@@ -6,7 +6,7 @@ internal class Main: JavaPlugin() {
 	override fun onEnable() {
 		super.onEnable()
 
-		getCommand("warden")?.setExecutor(Command())
+		getCommand("spawner")?.setExecutor(Command())
 		enableSpawnerLibrary()
 	}
 }

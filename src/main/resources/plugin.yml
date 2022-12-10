@@ -1,8 +1,8 @@
-name: PickariaWarden
-main: fr.pickaria.shopapi.Main
+name: PickariaSpawner
+main: fr.pickaria.spawner.Main
 api-version: 1.19
 version: 1.0
 
 commands:
-  warden:
-    usage: /warden
+  spawner:
+    usage: /spawner
