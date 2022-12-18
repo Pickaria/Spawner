@@ -12,6 +12,7 @@ version = "1.0.2-SNAPSHOT"
 
 SpigotWarden {
 	minecraftVersion.set("1.19.3-R0.1-SNAPSHOT")
+	buildOutput.set(file("server/plugins"))
 }
 
 repositories {
