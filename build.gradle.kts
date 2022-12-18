@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "fr.pickaria"
-version = "1.0.2-SNAPSHOT"
+version = "1.0.3-SNAPSHOT"
 
 SpigotWarden {
 	minecraftVersion.set("1.19.3-R0.1-SNAPSHOT")
@@ -48,7 +48,7 @@ publishing {
 		create<MavenPublication>("maven") {
 			groupId = "fr.pickaria"
 			artifactId = "spawner"
-			version = "1.0.2-SNAPSHOT"
+			version = "1.0.3-SNAPSHOT"
 
 			from(components["java"])
 		}

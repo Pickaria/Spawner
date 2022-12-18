@@ -58,7 +58,8 @@ internal class Listeners : Listener {
 							PlayerBuyEvent(
 								whoClicked as Player,
 								merchantInventory.merchant as Shop,
-								it
+								it,
+								merchantInventory
 							)
 						} else {
 							ShopClickEvent(
