@@ -11,9 +11,9 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import org.bukkit.Location
-import org.bukkit.craftbukkit.v1_19_R2.CraftWorld
-import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftMerchant
-import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftMerchantRecipe
+import org.bukkit.craftbukkit.v1_19_R3.CraftWorld
+import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftMerchant
+import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftMerchantRecipe
 import kotlin.random.Random
 
 
@@ -79,7 +79,7 @@ class CustomVillager(location: Location, title: String) :
 				val x = target.x + Random.Default.nextInt(-maxDist, maxDist)
 				val y = target.y + Random.Default.nextInt(-maxDist, maxDist)
 				val z = target.z + Random.Default.nextInt(-maxDist, maxDist)
-				val target = BlockPos(x, y, z)
+				val target = BlockPos(x.toInt(), y.toInt(), z.toInt())
 				val path = this.navigation.createPath(target, 0)
 				this.navigation.moveTo(path, 0.5)
 				moveIn = Random.nextInt(20, 100)

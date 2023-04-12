@@ -1,6 +1,6 @@
 package fr.pickaria.spawner
 
-import org.bukkit.craftbukkit.v1_19_R2.inventory.CraftMerchantCustom
+import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftMerchantCustom
 import org.bukkit.inventory.MerchantRecipe
 
 class Shop(title: String, private val customVillager: CustomVillager) : CraftMerchantCustom(title) {

@@ -5,11 +5,7 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.event.inventory.InventoryCloseEvent
-import org.bukkit.event.inventory.InventoryOpenEvent
-import org.bukkit.event.inventory.InventoryType
-import org.bukkit.event.inventory.TradeSelectEvent
+import org.bukkit.event.inventory.*
 import org.bukkit.inventory.MerchantInventory
 
 internal class Listeners : Listener {
@@ -19,9 +15,12 @@ internal class Listeners : Listener {
 			if (inventory.type == InventoryType.MERCHANT) {
 				val merchantInventory = inventory as MerchantInventory
 				if (merchantInventory.merchant is Shop) {
+					val shop = merchantInventory.merchant as Shop
+
 					val customEvent = PlayerOpenShopEvent(
 						player as Player,
-						merchantInventory.merchant
+						shop,
+						shop.villager
 					)
 					Bukkit.getPluginManager().callEvent(customEvent)
 					isCancelled = customEvent.isCancelled

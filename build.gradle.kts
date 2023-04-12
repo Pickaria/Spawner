@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	kotlin("jvm") version "1.7.20"
+	kotlin("jvm") version "1.8.20"
 	id("io.github.shayf0x.spigotwarden") version "1.0"
 	`maven-publish`
 	java
 }
 
 group = "fr.pickaria"
-version = "1.0.4-SNAPSHOT"
+version = "1.0.8-SNAPSHOT"
 
 SpigotWarden {
-	minecraftVersion.set("1.19.3-R0.1-SNAPSHOT")
+	minecraftVersion.set("1.19.4-R0.1-SNAPSHOT")
 	buildOutput.set(file("server/plugins"))
 }
 
@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-	implementation("org.spigotmc:spigot:1.19.3-R0.1-SNAPSHOT:remapped-mojang")
+	implementation("org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT:remapped-mojang")
 }
 
 tasks.withType<KotlinCompile> {
@@ -48,7 +48,7 @@ publishing {
 		create<MavenPublication>("maven") {
 			groupId = "fr.pickaria"
 			artifactId = "spawner"
-			version = "1.0.4-SNAPSHOT"
+			version = "1.0.8-SNAPSHOT"
 
 			from(components["java"])
 		}
