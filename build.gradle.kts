@@ -17,12 +17,15 @@ SpigotWarden {
 
 repositories {
 	maven("https://jitpack.io")
+	maven("https://oss.sonatype.org/content/groups/public/")
+	maven("https://repo.papermc.io/repository/maven-public/") // Paper
 	mavenCentral()
 	mavenLocal()
 }
 
 dependencies {
 	implementation("org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT:remapped-mojang")
+	compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
 }
 
 tasks.withType<KotlinCompile> {
