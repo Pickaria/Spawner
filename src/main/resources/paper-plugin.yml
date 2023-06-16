@@ -1,5 +1,5 @@
 name: PickariaSpawner
 main: fr.pickaria.spawner.Main
-api-version: 1.19
-version: 1.0
+api-version: "1.20"
+version: "1.0"
 loader: fr.pickaria.spawner.Loader

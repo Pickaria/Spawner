@@ -8,10 +8,10 @@ plugins {
 }
 
 group = "fr.pickaria"
-version = "1.0.8-SNAPSHOT"
+version = "1.0.9-SNAPSHOT"
 
 SpigotWarden {
-	minecraftVersion.set("1.19.4-R0.1-SNAPSHOT")
+	minecraftVersion.set("1.20.1-R0.1-SNAPSHOT")
 	buildOutput.set(file("server/plugins"))
 }
 
@@ -24,8 +24,8 @@ repositories {
 }
 
 dependencies {
-	implementation("org.spigotmc:spigot:1.19.4-R0.1-SNAPSHOT:remapped-mojang")
-	compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
+	implementation("org.spigotmc:spigot:1.20.1-R0.1-SNAPSHOT:remapped-mojang")
+	compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
 }
 
 tasks.withType<KotlinCompile> {
@@ -51,7 +51,7 @@ publishing {
 		create<MavenPublication>("maven") {
 			groupId = "fr.pickaria"
 			artifactId = "spawner"
-			version = "1.0.8-SNAPSHOT"
+			version = "1.0.9-SNAPSHOT"
 
 			from(components["java"])
 		}

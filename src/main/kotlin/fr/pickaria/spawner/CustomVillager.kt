@@ -11,9 +11,9 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import org.bukkit.Location
-import org.bukkit.craftbukkit.v1_19_R3.CraftWorld
-import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftMerchant
-import org.bukkit.craftbukkit.v1_19_R3.inventory.CraftMerchantRecipe
+import org.bukkit.craftbukkit.v1_20_R1.CraftWorld
+import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftMerchant
+import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftMerchantRecipe
 import kotlin.random.Random
 
 
@@ -36,6 +36,7 @@ class CustomVillager(location: Location, title: String) :
 	private val maxDist: Int = 3
 	private val shop: CraftMerchant = Shop(title, this)
 	private var moveIn: Int = 0
+	private val level = (location.world as CraftWorld).handle
 
 	init {
 		target = Vec3(location.blockX.toDouble(), location.blockY.toDouble(), location.blockZ.toDouble())
