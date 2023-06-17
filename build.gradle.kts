@@ -42,8 +42,12 @@ java {
 publishing {
 	repositories {
 		maven {
-			url = uri("https://maven.quozul.dev/snapshots")
-			credentials(PasswordCredentials::class)
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/Pickaria/Spawner")
+			credentials {
+				username = System.getenv("GITHUB_ACTOR")
+				password = System.getenv("GITHUB_TOKEN")
+			}
 		}
 	}
 
