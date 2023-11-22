@@ -11,9 +11,9 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox
 import net.minecraft.world.phys.AABB
 import net.minecraft.world.phys.Vec3
 import org.bukkit.Location
-import org.bukkit.craftbukkit.v1_20_R1.CraftWorld
-import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftMerchant
-import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftMerchantRecipe
+import org.bukkit.craftbukkit.v1_20_R2.CraftWorld
+import org.bukkit.craftbukkit.v1_20_R2.inventory.CraftMerchant
+import org.bukkit.craftbukkit.v1_20_R2.inventory.CraftMerchantRecipe
 import kotlin.random.Random
 
 

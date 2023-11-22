@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	kotlin("jvm") version "1.8.20"
+	kotlin("jvm") version "1.9.10"
 	id("io.github.shayf0x.spigotwarden") version "1.0"
 	`maven-publish`
 	java
 }
 
 group = "fr.pickaria"
-version = "1.0.10-SNAPSHOT"
+version = "1.0.11-SNAPSHOT"
 
 SpigotWarden {
-	minecraftVersion.set("1.20.1-R0.1-SNAPSHOT")
+	minecraftVersion.set("1.20.2-R0.1-SNAPSHOT")
 	buildOutput.set(file("server/plugins"))
 }
 
@@ -24,8 +24,8 @@ repositories {
 }
 
 dependencies {
-	compileOnly("org.spigotmc:spigot:1.20.1-R0.1-SNAPSHOT:remapped-mojang")
-	compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
+	compileOnly("org.spigotmc:spigot:1.20.2-R0.1-SNAPSHOT:remapped-mojang")
+	compileOnly("io.papermc.paper:paper-api:1.20.2-R0.1-SNAPSHOT")
 }
 
 tasks.withType<KotlinCompile> {
